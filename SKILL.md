@@ -1,0 +1,1 @@
+.cursor/skills/assist365/SKILL.md

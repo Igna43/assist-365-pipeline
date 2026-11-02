@@ -1,0 +1,4 @@
+-r requirements.txt
+mcp>=1.9,<2
+pytest==9.2.0
+ruff==0.17.3

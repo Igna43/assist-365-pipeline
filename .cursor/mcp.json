@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "assist365-bigquery": {
+      "command": "scripts/bq_mcp.sh",
+      "args": [],
+      "env": {
+        "GCP_PROJECT": "a365-de-imangini",
+        "BQ_LOCATION": "US"
+      }
+    }
+  }
+}

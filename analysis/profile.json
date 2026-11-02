@@ -1,0 +1,730 @@
+{
+  "por_plan": [
+    {
+      "nombre_plan": "Equipaje Protegido",
+      "producto_id": "PRD-11",
+      "polizas": 43888,
+      "prima_usd": "1379685.545426066",
+      "costo_usd": "2039633.869831018",
+      "siniestros": 6033,
+      "siniestralidad": "1.478332419",
+      "frecuencia": 0.1374635435654393,
+      "severidad": "338.079540831"
+    },
+    {
+      "nombre_plan": "Estudiante Larga",
+      "producto_id": "PRD-09",
+      "polizas": 51390,
+      "prima_usd": "2145290.170349797",
+      "costo_usd": "2461680.461889703",
+      "siniestros": 7236,
+      "siniestralidad": "1.147481351",
+      "frecuencia": 0.14080560420315236,
+      "severidad": "340.199068807"
+    },
+    {
+      "nombre_plan": "Esencial 30",
+      "producto_id": "PRD-01",
+      "polizas": 117595,
+      "prima_usd": "7361732.257827184",
+      "costo_usd": "5989015.626488",
+      "siniestros": 16675,
+      "siniestralidad": "0.813533475",
+      "frecuencia": 0.14180024660912455,
+      "severidad": "359.161356911"
+    },
+    {
+      "nombre_plan": "Cancelacion Plus",
+      "producto_id": "PRD-10",
+      "polizas": 58404,
+      "prima_usd": "4456277.921153173",
+      "costo_usd": "2799015.649019372",
+      "siniestros": 7987,
+      "siniestralidad": "0.628106168",
+      "frecuencia": 0.1367543318950757,
+      "severidad": "350.446431579"
+    },
+    {
+      "nombre_plan": "Esencial 60",
+      "producto_id": "PRD-02",
+      "polizas": 95558,
+      "prima_usd": "7944168.280906389",
+      "costo_usd": "4765499.825389036",
+      "siniestros": 13379,
+      "siniestralidad": "0.599873978",
+      "frecuencia": 0.1400092090667448,
+      "severidad": "356.192527497"
+    },
+    {
+      "nombre_plan": "Senior 100",
+      "producto_id": "PRD-07",
+      "polizas": 43861,
+      "prima_usd": "4716701.140310429",
+      "costo_usd": "2245179.278734805",
+      "siniestros": 6098,
+      "siniestralidad": "0.476006262",
+      "frecuencia": 0.13903011787236952,
+      "severidad": "368.182892544"
+    },
+    {
+      "nombre_plan": "Clasico Plus 150",
+      "producto_id": "PRD-04",
+      "polizas": 66341,
+      "prima_usd": "8969192.908733479",
+      "costo_usd": "3342577.551088245",
+      "siniestros": 9292,
+      "siniestralidad": "0.37267317",
+      "frecuencia": 0.14006421368384558,
+      "severidad": "359.726383027"
+    },
+    {
+      "nombre_plan": "Corporativo Anual",
+      "producto_id": "PRD-12",
+      "polizas": 29399,
+      "prima_usd": "4664330.927594167",
+      "costo_usd": "1501839.25709746",
+      "siniestros": 4332,
+      "siniestralidad": "0.321983856",
+      "frecuencia": 0.14735195074662402,
+      "severidad": "346.684962396"
+    },
+    {
+      "nombre_plan": "Premium 250",
+      "producto_id": "PRD-05",
+      "polizas": 58351,
+      "prima_usd": "10939264.852234014",
+      "costo_usd": "3084588.680467274",
+      "siniestros": 8731,
+      "siniestralidad": "0.281974038",
+      "frecuencia": 0.14962896951209062,
+      "severidad": "353.29156803"
+    },
+    {
+      "nombre_plan": "Clasico 100",
+      "producto_id": "PRD-03",
+      "polizas": 102462,
+      "prima_usd": "22044846.865376396",
+      "costo_usd": "5342081.334674826",
+      "siniestros": 14364,
+      "siniestralidad": "0.242327895",
+      "frecuencia": 0.1401885577091995,
+      "severidad": "371.907639562"
+    },
+    {
+      "nombre_plan": "Premium Total 500",
+      "producto_id": "PRD-06",
+      "polizas": 36534,
+      "prima_usd": "10075330.701992108",
+      "costo_usd": "1944503.428228603",
+      "siniestros": 5383,
+      "siniestralidad": "0.192996487",
+      "frecuencia": 0.14734220178463897,
+      "severidad": "361.230434373"
+    },
+    {
+      "nombre_plan": "Senior Premium 200",
+      "producto_id": "PRD-08",
+      "polizas": 29386,
+      "prima_usd": "9530994.917507276",
+      "costo_usd": "1506339.446806795",
+      "siniestros": 4333,
+      "siniestralidad": "0.158046401",
+      "frecuencia": 0.1474511672224869,
+      "severidad": "347.643537228"
+    }
+  ],
+  "por_pais": [
+    {
+      "pais_emision": "CL",
+      "polizas": 88284,
+      "prima_usd": "11021147.069782235",
+      "costo_usd": "4365557.65907187",
+      "siniestralidad": "0.396107377"
+    },
+    {
+      "pais_emision": "CO",
+      "polizas": 131887,
+      "prima_usd": "16922499.840581143",
+      "costo_usd": "6683558.973703046",
+      "siniestralidad": "0.394951044"
+    },
+    {
+      "pais_emision": "AR",
+      "polizas": 205521,
+      "prima_usd": "25570784.39553829",
+      "costo_usd": "10070297.300487387",
+      "siniestralidad": "0.39382043"
+    },
+    {
+      "pais_emision": "MX",
+      "polizas": 175567,
+      "prima_usd": "22868472.1426964",
+      "costo_usd": "8985564.318521884",
+      "siniestralidad": "0.392923684"
+    },
+    {
+      "pais_emision": "BR",
+      "polizas": 58884,
+      "prima_usd": "8016906.706214554",
+      "costo_usd": "3115012.518908296",
+      "siniestralidad": "0.388555416"
+    },
+    {
+      "pais_emision": "PE",
+      "polizas": 73026,
+      "prima_usd": "9828006.334597856",
+      "costo_usd": "3801963.639022654",
+      "siniestralidad": "0.386849938"
+    }
+  ],
+  "trimestre_pais": [
+    {
+      "trimestre": "2026-07-01",
+      "pais_emision": "CO",
+      "prima_usd": "989648.678042289",
+      "costo_usd": "430973.21585662",
+      "siniestralidad": "0.43548102",
+      "frecuencia": 0.14788646607382142,
+      "severidad": "355.002648976"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "pais_emision": "MX",
+      "prima_usd": "1425433.75741969",
+      "costo_usd": "589208.101867176",
+      "siniestralidad": "0.413353549",
+      "frecuencia": 0.14183188301785235,
+      "severidad": "372.680646342"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "pais_emision": "AR",
+      "prima_usd": "1506029.62541703",
+      "costo_usd": "605044.598620776",
+      "siniestralidad": "0.401748139",
+      "frecuencia": 0.14535874786920813,
+      "severidad": "322.518442762"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "pais_emision": "BR",
+      "prima_usd": "499070.249542388",
+      "costo_usd": "191840.498121204",
+      "siniestralidad": "0.384395781",
+      "frecuencia": 0.13649932157394845,
+      "severidad": "381.3926404"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "pais_emision": "PE",
+      "prima_usd": "621775.177097982",
+      "costo_usd": "237608.232593195",
+      "siniestralidad": "0.382144932",
+      "frecuencia": 0.14033539276257723,
+      "severidad": "373.597849989"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "pais_emision": "CL",
+      "prima_usd": "661896.759902221",
+      "costo_usd": "251789.119129991",
+      "siniestralidad": "0.380405426",
+      "frecuencia": 0.13340683572216097,
+      "severidad": "346.816968499"
+    }
+  ],
+  "trimestre_plan": [
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Equipaje Protegido",
+      "prima_usd": "80788.00941947",
+      "costo_usd": "117921.680819039",
+      "perdida_usd": "37133.671399569",
+      "siniestralidad": "1.459643351",
+      "frecuencia": 0.13062730627306274,
+      "severidad": "333.112092709"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Estudiante Larga",
+      "prima_usd": "128502.390391816",
+      "costo_usd": "160456.926722571",
+      "perdida_usd": "31954.536330755",
+      "siniestralidad": "1.248668809",
+      "frecuencia": 0.14326107445805844,
+      "severidad": "351.879225269"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Esencial 30",
+      "prima_usd": "446329.242045482",
+      "costo_usd": "346634.84259279",
+      "perdida_usd": "-99694.399452692",
+      "siniestralidad": "0.776634847",
+      "frecuencia": 0.14291525423728813,
+      "severidad": "328.875562232"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Cancelacion Plus",
+      "prima_usd": "276826.845050821",
+      "costo_usd": "173275.491420155",
+      "perdida_usd": "-103551.353630666",
+      "siniestralidad": "0.625934567",
+      "frecuencia": 0.1372495939361126,
+      "severidad": "341.766255267"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Senior 100",
+      "prima_usd": "276182.000387645",
+      "costo_usd": "150161.530531934",
+      "perdida_usd": "-126020.469855711",
+      "siniestralidad": "0.543704986",
+      "frecuencia": 0.13232023721275019,
+      "severidad": "420.620533703"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Esencial 60",
+      "prima_usd": "484365.229870016",
+      "costo_usd": "303025.879185395",
+      "perdida_usd": "-181339.350684621",
+      "siniestralidad": "0.625614434",
+      "frecuencia": 0.14755732801595214,
+      "severidad": "341.245359443"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Corporativo Anual",
+      "prima_usd": "279949.561180882",
+      "costo_usd": "94338.296625152",
+      "perdida_usd": "-185611.26455573",
+      "siniestralidad": "0.336983192",
+      "frecuencia": 0.14355628058727568,
+      "severidad": "357.342032671"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Clasico Plus 150",
+      "prima_usd": "550428.16578332",
+      "costo_usd": "225020.47062906",
+      "perdida_usd": "-325407.69515426",
+      "siniestralidad": "0.408809877",
+      "frecuencia": 0.14427860696517414,
+      "severidad": "369.491741591"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Premium Total 500",
+      "prima_usd": "609225.714309272",
+      "costo_usd": "152239.320317969",
+      "perdida_usd": "-456986.393991303",
+      "siniestralidad": "0.249889847",
+      "frecuencia": 0.15499124343257442,
+      "severidad": "430.054577169"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Senior Premium 200",
+      "prima_usd": "572937.78397226",
+      "costo_usd": "108465.843925109",
+      "perdida_usd": "-464471.940047151",
+      "siniestralidad": "0.189315222",
+      "frecuencia": 0.15367358384744811,
+      "severidad": "395.860744252"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Premium 250",
+      "prima_usd": "663137.865063162",
+      "costo_usd": "160198.977869022",
+      "perdida_usd": "-502938.88719414",
+      "siniestralidad": "0.241577184",
+      "frecuencia": 0.1372175333514838,
+      "severidad": "317.855114819"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "nombre_plan": "Clasico 100",
+      "prima_usd": "1335181.439947454",
+      "costo_usd": "314724.505550766",
+      "perdida_usd": "-1020456.934396688",
+      "siniestralidad": "0.235716657",
+      "frecuencia": 0.14201458947695172,
+      "severidad": "343.961208252"
+    }
+  ],
+  "por_trimestre": [
+    {
+      "trimestre": "2024-01-01",
+      "prima_usd": "9042531.26683857",
+      "costo_usd": "3501146.424083969",
+      "siniestralidad": "0.387186543"
+    },
+    {
+      "trimestre": "2024-04-01",
+      "prima_usd": "9015570.297346728",
+      "costo_usd": "3476897.051138592",
+      "siniestralidad": "0.385654699"
+    },
+    {
+      "trimestre": "2024-07-01",
+      "prima_usd": "8940340.651845026",
+      "costo_usd": "3526139.325410412",
+      "siniestralidad": "0.394407715"
+    },
+    {
+      "trimestre": "2024-10-01",
+      "prima_usd": "8969802.894114823",
+      "costo_usd": "3441332.160099953",
+      "siniestralidad": "0.383657501"
+    },
+    {
+      "trimestre": "2025-01-01",
+      "prima_usd": "8892228.063974498",
+      "costo_usd": "3606750.296931172",
+      "siniestralidad": "0.405607039"
+    },
+    {
+      "trimestre": "2025-04-01",
+      "prima_usd": "8811966.086321706",
+      "costo_usd": "3472599.322393361",
+      "siniestralidad": "0.394077699"
+    },
+    {
+      "trimestre": "2025-07-01",
+      "prima_usd": "8779830.4188472",
+      "costo_usd": "3365506.285231983",
+      "siniestralidad": "0.38332247"
+    },
+    {
+      "trimestre": "2025-10-01",
+      "prima_usd": "8846383.45294973",
+      "costo_usd": "3526421.642668905",
+      "siniestralidad": "0.398628622"
+    },
+    {
+      "trimestre": "2026-01-01",
+      "prima_usd": "8612382.125863914",
+      "costo_usd": "3400468.878650088",
+      "siniestralidad": "0.394834882"
+    },
+    {
+      "trimestre": "2026-04-01",
+      "prima_usd": "8612926.983886683",
+      "costo_usd": "3398229.25691774",
+      "siniestralidad": "0.394549874"
+    },
+    {
+      "trimestre": "2026-07-01",
+      "prima_usd": "5703854.2474216",
+      "costo_usd": "2306463.766188962",
+      "siniestralidad": "0.404369338"
+    }
+  ],
+  "anticipacion": [
+    {
+      "anticipacion": "0 a 2 dias",
+      "polizas": 137195,
+      "prima_usd": "17642082.656211567",
+      "siniestros_pagados": 31204,
+      "costo_usd": "11233423.932005005"
+    },
+    {
+      "anticipacion": "15 a 45 dias",
+      "polizas": 157845,
+      "prima_usd": "20287844.310891532",
+      "siniestros_pagados": 19259,
+      "costo_usd": "6852046.455256597"
+    },
+    {
+      "anticipacion": "3 a 14 dias",
+      "polizas": 61482,
+      "prima_usd": "7921363.526612384",
+      "siniestros_pagados": 7366,
+      "costo_usd": "2705996.630893776"
+    },
+    {
+      "anticipacion": "mas de 45 dias",
+      "polizas": 376647,
+      "prima_usd": "48376525.995694995",
+      "siniestros_pagados": 46316,
+      "costo_usd": "16230487.391559759"
+    }
+  ],
+  "fuera_de_vigencia": [
+    {
+      "pagados": 104483,
+      "fuera": 944,
+      "costo_usd": "37166593.45445195",
+      "costo_fuera_usd": "324048.517007436"
+    }
+  ],
+  "tipo_vs_producto": [
+    {
+      "tipo_producto": "MEDICO",
+      "tipo_siniestro": "MEDICO",
+      "pagados": 43028,
+      "costo_usd": "21807897.398299733"
+    },
+    {
+      "tipo_producto": "MEDICO",
+      "tipo_siniestro": "CANCELACION",
+      "pagados": 11786,
+      "costo_usd": "3551257.342791732"
+    },
+    {
+      "tipo_producto": "MEDICO",
+      "tipo_siniestro": "EQUIPAJE",
+      "pagados": 15720,
+      "costo_usd": "2268770.803821708"
+    },
+    {
+      "tipo_producto": "CANCELACION",
+      "tipo_siniestro": "MEDICO",
+      "pagados": 4453,
+      "costo_usd": "2158730.266383662"
+    },
+    {
+      "tipo_producto": "LARGA",
+      "tipo_siniestro": "MEDICO",
+      "pagados": 3896,
+      "costo_usd": "1853212.267325598"
+    },
+    {
+      "tipo_producto": "EQUIPAJE",
+      "tipo_siniestro": "MEDICO",
+      "pagados": 3312,
+      "costo_usd": "1528220.388985281"
+    },
+    {
+      "tipo_producto": "CORPORATIVO",
+      "tipo_siniestro": "MEDICO",
+      "pagados": 2362,
+      "costo_usd": "1158989.9688802"
+    },
+    {
+      "tipo_producto": "MEDICO",
+      "tipo_siniestro": "DEMORA",
+      "pagados": 7945,
+      "costo_usd": "591859.626964411"
+    },
+    {
+      "tipo_producto": "CANCELACION",
+      "tipo_siniestro": "CANCELACION",
+      "pagados": 1128,
+      "costo_usd": "342599.217398227"
+    },
+    {
+      "tipo_producto": "LARGA",
+      "tipo_siniestro": "CANCELACION",
+      "pagados": 1190,
+      "costo_usd": "339920.812726653"
+    },
+    {
+      "tipo_producto": "EQUIPAJE",
+      "tipo_siniestro": "CANCELACION",
+      "pagados": 958,
+      "costo_usd": "287522.655043323"
+    },
+    {
+      "tipo_producto": "CANCELACION",
+      "tipo_siniestro": "EQUIPAJE",
+      "pagados": 1588,
+      "costo_usd": "233358.223258343"
+    },
+    {
+      "tipo_producto": "LARGA",
+      "tipo_siniestro": "EQUIPAJE",
+      "pagados": 1443,
+      "costo_usd": "215776.577421113"
+    },
+    {
+      "tipo_producto": "EQUIPAJE",
+      "tipo_siniestro": "EQUIPAJE",
+      "pagados": 1213,
+      "costo_usd": "184032.971715636"
+    },
+    {
+      "tipo_producto": "CORPORATIVO",
+      "tipo_siniestro": "CANCELACION",
+      "pagados": 634,
+      "costo_usd": "172468.066621727"
+    },
+    {
+      "tipo_producto": "CORPORATIVO",
+      "tipo_siniestro": "EQUIPAJE",
+      "pagados": 906,
+      "costo_usd": "137763.925730846"
+    },
+    {
+      "tipo_producto": "CANCELACION",
+      "tipo_siniestro": "DEMORA",
+      "pagados": 843,
+      "costo_usd": "64327.94197914"
+    },
+    {
+      "tipo_producto": "LARGA",
+      "tipo_siniestro": "DEMORA",
+      "pagados": 732,
+      "costo_usd": "52770.804416339"
+    },
+    {
+      "tipo_producto": "EQUIPAJE",
+      "tipo_siniestro": "DEMORA",
+      "pagados": 563,
+      "costo_usd": "39857.854086778"
+    },
+    {
+      "tipo_producto": "CORPORATIVO",
+      "tipo_siniestro": "DEMORA",
+      "pagados": 445,
+      "costo_usd": "32617.295864687"
+    }
+  ],
+  "canal": [
+    {
+      "canal_origen": "meta",
+      "polizas": 161172,
+      "prima_usd": "20736852.172197245",
+      "costo_usd": "10437481.427988194"
+    },
+    {
+      "canal_origen": "google",
+      "polizas": 190550,
+      "prima_usd": "24483668.652420908",
+      "costo_usd": "8923194.392580117"
+    },
+    {
+      "canal_origen": "agencia",
+      "polizas": 176386,
+      "prima_usd": "22697261.481932684",
+      "costo_usd": "8143511.032643791"
+    },
+    {
+      "canal_origen": "organico",
+      "polizas": 131740,
+      "prima_usd": "16843790.669450927",
+      "costo_usd": "6130643.564265951"
+    },
+    {
+      "canal_origen": "email",
+      "polizas": 73321,
+      "prima_usd": "9466243.513408714",
+      "costo_usd": "3387123.992237084"
+    }
+  ],
+  "huerfanos_y_fx": [
+    {
+      "siniestros": 138133,
+      "siniestros_sin_poliza": 4025,
+      "emitidas_sin_fx": 0,
+      "pagados_sin_usd": 313,
+      "polizas_vigentes_o_no": 780000,
+      "anuladas": 46831,
+      "eventos_delete": 20000
+    }
+  ],
+  "demora_reporte": [
+    {
+      "cuartiles_dias": [
+        0,
+        2,
+        5,
+        8,
+        59
+      ],
+      "reporte_antes_de_ocurrir": 0,
+      "fechas_invalidas": 0
+    }
+  ],
+  "anuladas_con_pago": [
+    {
+      "polizas_anuladas_con_pago": 287,
+      "costo_usd": "144639.044736813"
+    }
+  ],
+  "canal_anticipacion": [
+    {
+      "canal_origen": "agencia",
+      "anticipacion": "0 a 2 dias",
+      "polizas": 33050,
+      "prima_usd": "4264910.377177298",
+      "costo_usd": "2526772.67894889",
+      "siniestros": 6920
+    },
+    {
+      "canal_origen": "agencia",
+      "anticipacion": "3 dias o mas",
+      "polizas": 143336,
+      "prima_usd": "18432351.104755386",
+      "costo_usd": "5616738.353694901",
+      "siniestros": 15946
+    },
+    {
+      "canal_origen": "email",
+      "anticipacion": "0 a 2 dias",
+      "polizas": 13749,
+      "prima_usd": "1768708.007516457",
+      "costo_usd": "1071190.586749997",
+      "siniestros": 2941
+    },
+    {
+      "canal_origen": "email",
+      "anticipacion": "3 dias o mas",
+      "polizas": 59572,
+      "prima_usd": "7697535.505892257",
+      "costo_usd": "2315933.405487087",
+      "siniestros": 6623
+    },
+    {
+      "canal_origen": "google",
+      "anticipacion": "0 a 2 dias",
+      "polizas": 35682,
+      "prima_usd": "4569400.425446633",
+      "costo_usd": "2731408.534146479",
+      "siniestros": 7364
+    },
+    {
+      "canal_origen": "google",
+      "anticipacion": "3 dias o mas",
+      "polizas": 154868,
+      "prima_usd": "19914268.226974275",
+      "costo_usd": "6191785.858433638",
+      "siniestros": 17371
+    },
+    {
+      "canal_origen": "meta",
+      "anticipacion": "0 a 2 dias",
+      "polizas": 30112,
+      "prima_usd": "3874613.1517833",
+      "costo_usd": "3111687.629294018",
+      "siniestros": 8860
+    },
+    {
+      "canal_origen": "meta",
+      "anticipacion": "3 dias o mas",
+      "polizas": 131060,
+      "prima_usd": "16862239.020413945",
+      "costo_usd": "7325793.798694176",
+      "siniestros": 20985
+    },
+    {
+      "canal_origen": "organico",
+      "anticipacion": "0 a 2 dias",
+      "polizas": 24602,
+      "prima_usd": "3164450.694287879",
+      "costo_usd": "1792364.502865621",
+      "siniestros": 5038
+    },
+    {
+      "canal_origen": "organico",
+      "anticipacion": "3 dias o mas",
+      "polizas": 107138,
+      "prima_usd": "13679339.975163048",
+      "costo_usd": "4338279.06140033",
+      "siniestros": 11795
+    }
+  ]
+}
