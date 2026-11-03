@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Siniestralidad por plan y por país</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.45;
+    margin: 0;
+  }
+  h1 { font-size: 18pt; line-height: 1.25; margin: 0 0 6px; }
+  h2 { font-size: 13.5pt; margin: 22px 0 8px; page-break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 14px 0 6px; page-break-after: avoid; }
+  p { margin: 0 0 8px; }
+  .meta { color: #444; font-size: 10pt; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; page-break-inside: avoid; }
+  th, td { border-bottom: 1px solid #ccc; padding: 4px 6px; text-align: right; font-size: 10pt; }
+  th { text-align: right; font-weight: 600; border-bottom: 1.5px solid #222; }
+  th:first-child, td:first-child { text-align: left; }
+  tr.loss td { font-weight: 600; }
+  pre {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 7.5pt;
+    line-height: 1.28;
+    background: #f4f4f4;
+    padding: 6px 8px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    page-break-inside: avoid;
+    margin: 6px 0 12px;
+  }
+  .note { font-size: 9.5pt; color: #333; }
+</style>
+</head>
+<body>
+  <h1>Siniestralidad por plan y por país, en dólares</h1>
+  <p class="meta">Assist-365 · proyecto a365-de-imangini · 2 de noviembre de 2026</p>
+
+  <p>La siniestralidad es el costo de siniestros pagados dividido la prima emitida, en dólares y sobre la misma población. Se calcula con <em>SUM / SUM</em> sobre <code>mart.siniestralidad_cohorte</code>. No es un promedio de porcentajes.</p>
+  <p>Supuestos, porque el glosario no los cerraba: la prima emitida excluye las pólizas cuyo estado vigente es <code>ANULADA</code> (no hay campo de devolución). El costo incluye solo siniestros con <code>status = PAGADO</code>. El siniestro se atribuye al mes, al país y al plan de emisión de su póliza, no a la fecha en que ocurrió. El dólar es <code>monto × factor_usd</code> de la moneda de la fila.</p>
+
+  <h2>Por plan</h2>
+  <p>Dos planes pierden plata. Equipaje Protegido tiene siniestralidad de 147,8% y una pérdida de USD 659.948. Estudiante Larga tiene 114,7% y pierde USD 316.390. El resto cobra más de lo que paga. El país, más abajo, casi no separa: la diferencia entre el peor y el mejor es un punto.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Plan</th>
+        <th>Pólizas</th>
+        <th>Prima USD</th>
+        <th>Costo USD</th>
+        <th>Siniestralidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="loss"><td>Equipaje Protegido</td><td>43.888</td><td>1.379.686</td><td>2.039.634</td><td>147,8%</td></tr>
+      <tr class="loss"><td>Estudiante Larga</td><td>51.390</td><td>2.145.290</td><td>2.461.680</td><td>114,7%</td></tr>
+      <tr><td>Esencial 30</td><td>117.595</td><td>7.361.732</td><td>5.989.016</td><td>81,4%</td></tr>
+      <tr><td>Cancelacion Plus</td><td>58.404</td><td>4.456.278</td><td>2.799.016</td><td>62,8%</td></tr>
+      <tr><td>Esencial 60</td><td>95.558</td><td>7.944.168</td><td>4.765.500</td><td>60,0%</td></tr>
+      <tr><td>Senior 100</td><td>43.861</td><td>4.716.701</td><td>2.245.179</td><td>47,6%</td></tr>
+      <tr><td>Clasico Plus 150</td><td>66.341</td><td>8.969.193</td><td>3.342.578</td><td>37,3%</td></tr>
+      <tr><td>Corporativo Anual</td><td>29.399</td><td>4.664.331</td><td>1.501.839</td><td>32,2%</td></tr>
+      <tr><td>Premium 250</td><td>58.351</td><td>10.939.265</td><td>3.084.589</td><td>28,2%</td></tr>
+      <tr><td>Clasico 100</td><td>102.462</td><td>22.044.847</td><td>5.342.081</td><td>24,2%</td></tr>
+      <tr><td>Premium Total 500</td><td>36.534</td><td>10.075.331</td><td>1.944.503</td><td>19,3%</td></tr>
+      <tr><td>Senior Premium 200</td><td>29.386</td><td>9.530.995</td><td>1.506.339</td><td>15,8%</td></tr>
+    </tbody>
+  </table>
+  <h3>SQL</h3>
+  <pre>SELECT
+  nombre_plan,
+  SUM(polizas_emitidas) AS polizas,
+  SUM(prima_emitida_usd) AS prima_usd,
+  SUM(costo_siniestros_usd) AS costo_usd,
+  SAFE_DIVIDE(SUM(costo_siniestros_usd), SUM(prima_emitida_usd)) AS siniestralidad
+FROM `a365-de-imangini.mart.siniestralidad_cohorte`
+GROUP BY nombre_plan
+ORDER BY siniestralidad DESC</pre>
+
+  <h2>Por país</h2>
+  <p>Chile es el más alto y Perú el más bajo. Entre 39,6% y 38,7% no hay una decisión de precio por país. El volumen sí cambia: Argentina y México concentran la prima.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>País</th>
+        <th>Pólizas</th>
+        <th>Prima USD</th>
+        <th>Costo USD</th>
+        <th>Siniestralidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>CL</td><td>88.284</td><td>11.021.147</td><td>4.365.558</td><td>39,6%</td></tr>
+      <tr><td>CO</td><td>131.887</td><td>16.922.500</td><td>6.683.559</td><td>39,5%</td></tr>
+      <tr><td>AR</td><td>205.521</td><td>25.570.784</td><td>10.070.297</td><td>39,4%</td></tr>
+      <tr><td>MX</td><td>175.567</td><td>22.868.472</td><td>8.985.564</td><td>39,3%</td></tr>
+      <tr><td>BR</td><td>58.884</td><td>8.016.907</td><td>3.115.013</td><td>38,9%</td></tr>
+      <tr><td>PE</td><td>73.026</td><td>9.828.006</td><td>3.801.964</td><td>38,7%</td></tr>
+    </tbody>
+  </table>
+  <h3>SQL</h3>
+  <pre>SELECT
+  pais_emision,
+  SUM(polizas_emitidas) AS polizas,
+  SUM(prima_emitida_usd) AS prima_usd,
+  SUM(costo_siniestros_usd) AS costo_usd,
+  SAFE_DIVIDE(SUM(costo_siniestros_usd), SUM(prima_emitida_usd)) AS siniestralidad
+FROM `a365-de-imangini.mart.siniestralidad_cohorte`
+GROUP BY pais_emision
+ORDER BY siniestralidad DESC</pre>
+
+  <h2>Hallazgo: la compra con menos de tres días de anticipación</h2>
+  <p>El tablero de plan y país no muestra esto. Las pólizas emitidas con 0 a 2 días entre la emisión y el inicio de vigencia son el 18,7% de las pólizas y concentran el 30,3% del costo pagado. Su siniestralidad es 63,7%, contra 33,7% del resto.</p>
+  <p>El problema es la frecuencia, no el monto. En la compra de último momento hay un siniestro pagado en el 22,7% de las pólizas, contra 12,2% en el resto. La severidad es casi la misma: USD 361 contra USD 355.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Anticipación</th>
+        <th>Pólizas</th>
+        <th>Prima USD</th>
+        <th>Siniestros</th>
+        <th>Costo USD</th>
+        <th>Siniestralidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="loss"><td>0 a 2 días</td><td>137.195</td><td>17.642.083</td><td>31.123</td><td>11.233.424</td><td>63,7%</td></tr>
+      <tr><td>3 días o más</td><td>595.974</td><td>76.585.734</td><td>72.720</td><td>25.788.530</td><td>33,7%</td></tr>
+    </tbody>
+  </table>
+  <p>Pasa en todos los canales. Meta es el extremo: 80,3% cuando la compra es de último momento, y todavía 43,4% cuando Meta compra con 3 días o más. El resto de los canales, con 3 días o más, queda entre 30% y 32%.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Canal</th>
+        <th>Siniestralidad 0–2 días</th>
+        <th>Siniestralidad 3 días o más</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Meta</td><td>80,3%</td><td>43,4%</td></tr>
+      <tr><td>Email</td><td>60,6%</td><td>30,1%</td></tr>
+      <tr><td>Google</td><td>59,8%</td><td>31,1%</td></tr>
+      <tr><td>Agencia</td><td>59,2%</td><td>30,5%</td></tr>
+      <tr><td>Orgánico</td><td>56,6%</td><td>31,7%</td></tr>
+    </tbody>
+  </table>
+  <p>La anticipación no está en el mart. Vive en <code>core.fct_venta.anticipacion_dias</code>, los días entre la emisión y <code>inicio_vigencia</code>. El costo se agrega por póliza antes de juntarlo con la venta, para no contar dos veces la prima de una póliza con más de un siniestro. Las mismas reglas de anuladas y de siniestros pagados siguen vigentes.</p>
+  <p>Con esto alcanza para actuar, sin otro modelo. Hay dos palancas.</p>
+  <p><strong>Precio.</strong> Cobrar más cuando el viaje empieza en menos de tres días. La prima de hoy no cubre una cartera con siniestralidad de 63,7% frente a 33,7% del resto.</p>
+  <p><strong>Score.</strong> Si la venta ya pasa por un score de riesgo, tratar «sale en 0 a 2 días» como un peor score: precio más alto, o rechazo. La señal es el momento de la compra. El siniestro no es más caro; hay más siniestros.</p>
+  <p><strong>Meta va aparte.</strong> En la misma ventana de 0 a 2 días está en 80,3%, y el resto de los canales queda entre 56% y 61%. Con 3 días o más, Meta sigue en 43,4%, por encima del 30% a 32% de los demás. Un recargo solo por anticipación no arregla ese canal.</p>
+  <h3>SQL</h3>
+  <pre>WITH ventas AS (
+  SELECT
+    poliza_id,
+    canal_origen,
+    anticipacion_dias,
+    prima_usd
+  FROM `a365-de-imangini.core.fct_venta`
+  WHERE cuenta_como_emitida
+    AND NOT fx_missing
+    AND anticipacion_dias IS NOT NULL
+),
+siniestros AS (
+  SELECT
+    policy_id,
+    COUNTIF(es_pagado AND costo_usd IS NOT NULL) AS siniestros,
+    SUM(IF(es_pagado, costo_usd, 0)) AS costo_usd
+  FROM `a365-de-imangini.core.fct_siniestro`
+  GROUP BY policy_id
+)
+SELECT
+  IF(v.anticipacion_dias BETWEEN 0 AND 2, '0-2 dias', '3 o mas') AS anticipacion,
+  v.canal_origen,
+  COUNT(*) AS polizas,
+  SUM(v.prima_usd) AS prima_usd,
+  SUM(IFNULL(s.siniestros, 0)) AS siniestros,
+  SUM(IFNULL(s.costo_usd, 0)) AS costo_usd
+FROM ventas AS v
+LEFT JOIN siniestros AS s
+  ON s.policy_id = v.poliza_id
+GROUP BY 1, 2
+ORDER BY 2, 1</pre>
+  <p class="note">Los totales de 0–2 días y de 3 días o más son la suma de las filas de esa consulta. La siniestralidad de cada fila es costo dividido prima. La frecuencia es siniestros divididos pólizas. La severidad es costo dividido siniestros.</p>
+</body>
+</html>

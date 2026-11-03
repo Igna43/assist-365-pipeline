@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="692" viewBox="0 0 760 692" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitectura del pipeline Assist-365</title>
+  <desc id="desc">Cloud Scheduler dispara el Cloud Run Job. La API y el job alimentan Python, que escribe NDJSON en Cloud Storage, carga BigQuery raw, arma core y el mart, y Looker Studio lee el mart.</desc>
+  <rect width="760" height="692" rx="16" fill="#0f1419"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1.2 L 8.5 5 L 0 8.8 Z" fill="#7dd3fc"/>
+    </marker>
+    <marker id="arr-api" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1.2 L 8.5 5 L 0 8.8 Z" fill="#86efac"/>
+    </marker>
+  </defs>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
+    <rect x="248" y="24" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="47" fill="#f8fafc" font-size="16" font-weight="600">Cloud Scheduler</text>
+    <text x="272" y="66" fill="#94a3b8" font-size="13">08:00, hora de Bogot&#225;</text>
+
+    <line x1="492" y1="80" x2="492" y2="104" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="248" y="108" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="131" fill="#f8fafc" font-size="16" font-weight="600">Cloud Run Job</text>
+    <text x="272" y="150" fill="#94a3b8" font-size="13">a365-pipeline / python -m src.pipeline</text>
+
+    <line x1="492" y1="164" x2="492" y2="188" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="20" y="192" width="200" height="56" rx="12" fill="#13261c" stroke="#166534"/>
+    <text x="40" y="215" fill="#f8fafc" font-size="16" font-weight="600">API Assist-365</text>
+    <text x="40" y="234" fill="#86efac" font-size="13">p&#243;lizas y siniestros</text>
+    <line x1="220" y1="220" x2="244" y2="220" stroke="#86efac" stroke-width="2" marker-end="url(#arr-api)"/>
+
+    <rect x="248" y="192" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="215" fill="#f8fafc" font-size="16" font-weight="600">Python</text>
+    <text x="272" y="234" fill="#94a3b8" font-size="13">reintentos, paginaci&#243;n y limpieza</text>
+
+    <line x1="492" y1="248" x2="492" y2="272" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="248" y="276" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="299" fill="#f8fafc" font-size="16" font-weight="600">Cloud Storage</text>
+    <text x="272" y="318" fill="#94a3b8" font-size="13">NDJSON gzip</text>
+
+    <line x1="492" y1="332" x2="492" y2="356" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="248" y="360" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="383" fill="#f8fafc" font-size="16" font-weight="600">BigQuery raw</text>
+    <text x="272" y="402" fill="#94a3b8" font-size="13">load job y MERGE</text>
+
+    <line x1="492" y1="416" x2="492" y2="440" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="248" y="444" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="467" fill="#f8fafc" font-size="16" font-weight="600">BigQuery core</text>
+    <text x="272" y="486" fill="#94a3b8" font-size="13">hechos y dimensiones</text>
+
+    <line x1="492" y1="500" x2="492" y2="524" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="248" y="528" width="488" height="56" rx="12" fill="#1c2430" stroke="#334155"/>
+    <text x="272" y="551" fill="#f8fafc" font-size="16" font-weight="600">mart.siniestralidad_cohorte</text>
+    <text x="272" y="570" fill="#94a3b8" font-size="13">una fila por mes, pa&#237;s y plan</text>
+
+    <line x1="492" y1="584" x2="492" y2="608" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect x="248" y="612" width="488" height="56" rx="12" fill="#172033" stroke="#1d4ed8"/>
+    <text x="272" y="635" fill="#f8fafc" font-size="16" font-weight="600">Looker Studio</text>
+    <text x="272" y="654" fill="#93c5fd" font-size="13">solo lee el mart</text>
+  </g>
+</svg>

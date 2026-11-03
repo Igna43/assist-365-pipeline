@@ -4,27 +4,65 @@ Pipeline que saca pólizas, siniestros y catálogos de la API interna, los deja 
 
 El código está en [github.com/Igna43/assist-365-pipeline](https://github.com/Igna43/assist-365-pipeline). El token de la API no está en el repo.
 
-## Qué hace una corrida
+## Arquitectura
 
-```
-API  ->  Python (reintentos, paginación, limpieza)
-              |
-              v
-        NDJSON local  ->  gzip  ->  gs://a365-de-imangini-raw/raw/{recurso}/{batch}/
-              |
-              v
-        BigQuery raw     (load job; pólizas incrementales con MERGE)
-              |
-              v
-        BigQuery core    (dimensiones y hechos, grano declarado)
-              |
-              v
-        mart.siniestralidad_cohorte   ->   Looker Studio
-```
+Cada corrida baja la API, deja el archivo en Cloud Storage y publica el mart que lee Looker. Cloud Scheduler dispara el Cloud Run Job `a365-pipeline` todos los días a las 08:00, hora de Bogotá. El entrypoint del job y de la máquina local es el mismo: `python -m src.pipeline`.
 
-Cloud Scheduler dispara el Cloud Run Job `a365-pipeline` todos los días a las 08:00, hora de Bogotá. El mismo entrypoint es `python -m src.pipeline`.
+![Arquitectura: Scheduler dispara el Cloud Run Job. La API entra a Python, que deja NDJSON en Cloud Storage, carga BigQuery raw, arma core y el mart, y Looker lee solo el mart.](docs/arquitectura.svg)
 
-Los datasets viven en la región `US`: `raw`, `core`, `mart` y `ops`.
+Los datasets viven en la región `US`: `raw`, `core`, `mart` y `ops`. El archivo de cada recurso queda en `gs://a365-de-imangini-raw/raw/{recurso}/{batch}/`.
+
+## Decisiones
+
+### ELT, con una limpieza mínima antes de cargar
+
+El modelo de negocio se arma en BigQuery, después de que el crudo ya está cargado. Python extrae y carga. El grano, el calendario de tipo de cambio, la póliza vigente y el mart son `CREATE OR REPLACE TABLE` en `sql/`.
+
+Antes del archivo, Python solo deja la fila en un tipo que BigQuery acepta: fechas mezcladas a `DATE`, `amount.value` de string a decimal, y `NaN` de moneda a null. Sin eso el load job rechaza el archivo. Esa limpieza no es el modelo.
+
+### NDJSON y no un JSON, un CSV o Parquet
+
+NDJSON es un objeto JSON por línea. BigQuery lo carga nativo con `NEWLINE_DELIMITED_JSON`.
+
+Un solo JSON, el array de 1.003.461 pólizas, es un documento. Hay que tenerlo entero para cerrar el `]` y no se puede ir escribiendo mientras llegan las páginas. El load job de BigQuery no toma ese array como formato de carga. Con NDJSON el extractor abre el archivo y escribe cada página al disco. Si la corrida se corta, lo ya escrito se lee línea por línea.
+
+CSV obligaría a escapar comas y comillas de `detail`, que llega con tres formas distintas. Parquet comprime mejor y es columnar, pero el writer necesita el esquema y una librería extra (`pyarrow`) para un loop que ya produce diccionarios. Serializar una línea y comprimir el archivo con gzip es el camino corto. BigQuery lee el `.ndjson.gz` directo, sin descomprimir afuera.
+
+El archivo pasa por Cloud Storage y entra con un load job, no con streaming insert. Hay un millón de eventos: el load job no se cobra, es atómico y el objeto en `gs://` se puede volver a cargar sin pegarle otra vez a la API. El streaming cobra y tiene cupo por fila, y no deja ese archivo.
+
+### Pólizas incrementales, el resto en foto completa
+
+La póliza tiene cursor y `updated_at`. La segunda corrida manda `updated_since`, tira en el cliente las filas de la página que siguen siendo viejas, y hace `MERGE` por `(poliza_id, updated_at, op)`. El siniestro no tiene feed de cambios: 139 mil filas se reemplazan enteras, igual que los catálogos. Los hechos se reconstruyen siempre desde el log completo, así un `D` o un `U` tardío corrige la póliza vigente aunque el archivo del día sea chico.
+
+### SQL plano, sin dbt
+
+Los tres archivos de `sql/` ya son los modelos. dbt les pondría `ref()`, linaje y los tests al lado de cada modelo. Hoy eso no paga el costo. Hay tres scripts, los tests de `tests/data/` ya frenan el job, y un cambio en la entrevista es editar el SQL y correr `python -m src.pipeline --only transform`. dbt mete un compile, un `profiles.yml` y otro paquete en la imagen del Cloud Run, adelante de esa corrida.
+
+Los tests son consultas que devuelven filas solo cuando fallan, no Great Expectations ni tests de dbt. La superficie que se toca en vivo sigue siendo el mismo SQL del modelo. dbt empieza a convenir si aparecen muchos más modelos, o si alguien tiene que seguir una columna sin leer `src/transform.py`.
+
+### Tipo de cambio con calendario continuo
+
+Un join a la fecha exacta dejaba 215.219 pólizas emitidas sin dólares: el catálogo trae 732 fechas, no todos los días del rango. `dim_tipo_cambio` arma un día por moneda y arrastra la última tasa. El día queda marcado (`exact`, `carried_forward`, `extrapolated_forward`, `extrapolated_backward`, `missing`). No se inventa una moneda cuando el origen trae `NaN`.
+
+### Cohorte de emisión, y la anulada fuera del ratio
+
+El siniestro pagado se cuelga del mes, país y plan de la póliza, no del mes en que ocurrió. "Este trimestre" responde qué se vendió en el trimestre. La prima emitida excluye el estado vigente `ANULADA` porque no hay campo de devolución. Esos siniestros también quedan afuera: si entraran, el costo sumaría y la prima no. Los montos negativos del origen se conservan. El factor de cambio no es negativo, y tirar el monto subiría el costo.
+
+### Looker solo contra el mart
+
+El informe lee la tabla `mart.siniestralidad_cohorte`, 2.304 filas, 0,21 MB. No es una vista sobre el hecho de un millón de filas. Los ratios son `SUM / SUM` de columnas aditivas, así un filtro no promedia porcentajes.
+
+### La cuenta que puede correr el job, y el secreto
+
+Esta cuenta no puede `projects.setIamPolicy` ni habilitar APIs. La service account dedicada `a365-pipeline` solo tiene `storage.objectAdmin` en el bucket. El job corre con la cuenta de Compute, que ya tiene `roles/editor`. Secret Manager no se pudo prender (`serviceusage.services.enable` denegado el 2 de noviembre de 2026), así que el token vive en `.env` y entra al job como variable de entorno en el deploy. No está en git.
+
+### CI sin bodega, tests de bodega en la corrida
+
+GitHub Actions corre `ruff` y `pytest`. No tiene token ni credenciales de GCP. Los doce SQL de `tests/data/` corren al final del pipeline, donde BigQuery ya está, y un fallo tira abajo el Cloud Run Job.
+
+### El MCP al lado del paquete, no encima
+
+El servidor está en `mcp_bigquery/`. Una carpeta `mcp/` taparía el SDK de Python del mismo nombre. `mcp` 2.x rompe FastMCP, por eso el pin es `mcp>=1.9,<2`.
 
 ## Paso 0. El secreto, y por qué sigue haciendo falta `.env`
 
@@ -329,6 +367,6 @@ bash infra/deploy.sh
 
 - Particionar el log de pólizas por día de ingesta y conservar fotos de siniestros, no solo la última.
 - Un loss ratio de calendario al lado de la cohorte, para ver el desfase del trimestre que todavía está madurando.
-- dbt si el modelo crece y hace falta el linaje dentro de la herramienta.
+- dbt, cuando el modelo deje de ser tres archivos. Por qué no está ahora: la sección Decisiones.
 - Secret Manager, el día que la cuenta pueda habilitar `secretmanager.googleapis.com`.
 - El video de diez minutos queda para grabarlo sobre este repo.
