@@ -1,4 +1,4 @@
--- Fails when an emitted policy has no USD premium and was not flagged as missing FX.
+-- Falla si una póliza emitida no tiene prima en dólares y no quedó marcada como tipo de cambio faltante.
 SELECT poliza_id, moneda, fecha_emision, fx_source
 FROM `${project}.core.fct_venta`
 WHERE cuenta_como_emitida

@@ -1,5 +1,5 @@
--- Fails when a paid USD cost flips the sign of the source amount or uses a non-positive FX rate.
--- Negative source amounts are kept: the feed contains them, and the net paid cost should include them.
+-- Falla si un costo pagado en dólares invierte el signo del monto de origen o usa un tipo de cambio no positivo.
+-- Los montos negativos del origen se conservan: el feed los trae, y el costo pagado neto tiene que incluirlos.
 SELECT claim_id, amount_value, fx_factor, costo_usd
 FROM `${project}.core.fct_siniestro`
 WHERE es_pagado

@@ -6,7 +6,7 @@ El código está en [github.com/Igna43/assist-365-pipeline](https://github.com/I
 
 ## Arquitectura
 
-Cada corrida baja la API, deja el archivo en Cloud Storage y publica el mart que lee Looker. Cloud Scheduler dispara el Cloud Run Job `a365-pipeline` todos los días a las 08:00, hora de Bogotá. El entrypoint del job y de la máquina local es el mismo: `python -m src.pipeline`.
+Cada corrida baja la API, deja el archivo en Cloud Storage y publica el mart que lee Looker. Cloud Scheduler dispara el Cloud Run Job `a365-pipeline` todos los días a las 08:00, hora de Bogotá. El entrypoint del job y de la máquina local es el mismo: `python -m src.pipeline`. El porqué de esa pareja está en Decisiones.
 
 ![Arquitectura: Scheduler dispara el Cloud Run Job. La API entra a Python, que deja NDJSON en Cloud Storage, carga BigQuery raw, arma core y el mart, y Looker lee solo el mart.](docs/arquitectura.svg)
 
@@ -51,6 +51,14 @@ El siniestro pagado se cuelga del mes, país y plan de la póliza, no del mes en
 ### Looker solo contra el mart
 
 El informe lee la tabla `mart.siniestralidad_cohorte`, 2.304 filas, 0,21 MB. No es una vista sobre el hecho de un millón de filas. Los ratios son `SUM / SUM` de columnas aditivas, así un filtro no promedia porcentajes.
+
+### Un Cloud Run Job, disparado por Cloud Scheduler
+
+La corrida es un batch que termina. `python -m src.pipeline` es el mismo comando en la máquina local y dentro del contenedor: arranca, extrae, carga, arma el modelo, corre los tests y sale. Cloud Scheduler lo vuelve a levantar con un POST, todos los días a las 08:00, hora de Bogotá (`0 8 * * *`). Entre una corrida y la siguiente no queda nada prendido.
+
+Un Cloud Run Service esperaría HTTP todo el día para un trabajo de unos minutos. Cloud Composer levanta un Airflow para un único job lineal, y el orden ya está en `src/pipeline.py`. Una consulta programada de BigQuery correría el SQL y dejaría afuera la API. Una VM con cron estaría prendida las 24 horas.
+
+El job pide 1 CPU, 2 GiB, timeout de 60 minutos y un reintento. Cómo se despliega: el paso 8.
 
 ### La cuenta que puede correr el job, y el secreto
 
@@ -250,7 +258,7 @@ El detalle y las tablas están en `analysis/resultados.md`. El perfil crudo est�
 
 ## Paso 8. El job diario
 
-`bash infra/deploy.sh` hace, en este orden:
+El cron y el contenedor están justificados en Decisiones. `bash infra/deploy.sh` hace, en este orden:
 
 1. Lee `.env`. Si no está, corta.
 2. Fija el proyecto y desactiva los prompts de gcloud.

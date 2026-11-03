@@ -1,4 +1,4 @@
--- Fails when a required policy attribute is null or outside the known domain.
+-- Falla si un atributo obligatorio de la póliza es nulo o está fuera del dominio conocido.
 SELECT poliza_id, estado, pais_emision, moneda
 FROM `${project}.core.fct_venta`
 WHERE poliza_id IS NULL

@@ -1,4 +1,4 @@
--- Fails when a non-null agency id is not in the agency catalog.
+-- Falla si una agencia informada no está en el catálogo de agencias.
 SELECT v.poliza_id, v.agencia_id
 FROM `${project}.core.fct_venta` AS v
 LEFT JOIN `${project}.core.dim_agencia` AS a

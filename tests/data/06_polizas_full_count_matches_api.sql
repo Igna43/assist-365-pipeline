@@ -1,5 +1,5 @@
--- Fails when the latest full policy extract does not match the API event count.
--- Incremental runs are skipped: x-total-count stays the global total, not the delta.
+-- Falla si la última extracción completa de pólizas no coincide con la cantidad de eventos de la API.
+-- Las corridas incrementales se saltean: x-total-count sigue siendo el total global, no el delta.
 WITH latest AS (
   SELECT mode, api_total, loaded_rows
   FROM `${project}.ops.extract_counts`

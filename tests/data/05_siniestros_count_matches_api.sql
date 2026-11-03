@@ -1,4 +1,4 @@
--- Fails when the latest full claims extract does not match the API total.
+-- Falla si la última extracción completa de siniestros no coincide con el total de la API.
 WITH latest AS (
   SELECT api_total, loaded_rows
   FROM `${project}.ops.extract_counts`

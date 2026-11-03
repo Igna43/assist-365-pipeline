@@ -1,6 +1,7 @@
 from src.extract import normalize_siniestro
 
 
+# El siniestro acepta las dos formas de fecha del feed y deja la moneda nula cuando no vino.
 def test_claim_keeps_both_date_formats_and_null_currency():
     row = {
         "claim_id": "SIN-1",

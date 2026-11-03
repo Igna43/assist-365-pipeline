@@ -23,6 +23,7 @@ class FakeSession:
         return self.responses.pop(0)
 
 
+# Un 500 transitorio se reintenta una vez y la respuesta 200 se devuelve con sus headers.
 def test_retries_transient_500_then_returns_json():
     sleeps = []
     session = FakeSession(
@@ -40,6 +41,7 @@ def test_retries_transient_500_then_returns_json():
     assert session.calls[0][1] == {"cursor": "abc"}
 
 
+# Un 401 no se reintenta: el token está mal y esperar no lo arregla.
 def test_401_does_not_retry():
     sleeps = []
     session = FakeSession([FakeResponse(401, {"error": "unauthorized"})])
@@ -55,6 +57,7 @@ def test_401_does_not_retry():
     assert len(session.calls) == 1
 
 
+# Un 429 espera lo que dice Retry-After antes de volver a pedir.
 def test_429_uses_retry_after():
     sleeps = []
     session = FakeSession(
@@ -69,17 +72,21 @@ def test_429_uses_retry_after():
     assert sleeps == [0.25]
 
 
+# El JSON de la API trae el token NaN en la moneda. Se lee como null, no como texto.
 def test_nan_token_becomes_null():
     payload = loads_payload('{"amount": {"value": "10", "currency": NaN}}')
     assert payload["amount"]["currency"] is None
 
 
+# updated_since solo va en la primera página. Si ya hay cursor, no se vuelve a mandar.
 def test_poliza_params_send_watermark_only_without_cursor():
     assert poliza_params(None, None) == {}
     assert poliza_params(None, "2026-10-01T00:00:00Z") == {"updated_since": "2026-10-01T00:00:00Z"}
     assert poliza_params("cursor-1", "2026-10-01T00:00:00Z") == {"cursor": "cursor-1"}
 
 
+# El cursor avanza solo cuando la página dice que hay más.
+# El filtro tira las pólizas viejas que esa página todavía trae.
 def test_cursor_and_watermark_filter():
     assert next_cursor({"has_more": True, "next_cursor": "abc"}) == "abc"
     assert next_cursor({"has_more": False, "next_cursor": "abc"}) is None

@@ -1,4 +1,4 @@
--- Fails when a premium is negative.
+-- Falla si una prima es negativa.
 SELECT poliza_id, prima_local, prima_usd
 FROM `${project}.core.fct_venta`
 WHERE prima_local < 0

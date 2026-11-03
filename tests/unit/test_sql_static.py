@@ -12,6 +12,7 @@ def _sql_files():
     yield from (ROOT / "tests" / "data").glob("*.sql")
 
 
+# El SQL del modelo y de los tests solo nombra datasets del proyecto: raw, core, mart y ops.
 def test_model_sql_only_references_owned_datasets():
     offenders = []
     for path in _sql_files():
@@ -26,6 +27,8 @@ def test_model_sql_only_references_owned_datasets():
     assert offenders == []
 
 
+# Cada test de datos es un SELECT no vacío.
+# Tiene WHERE o HAVING para devolver filas solo cuando la afirmación falla.
 def test_data_tests_are_nonempty_failure_queries():
     paths = sorted((ROOT / "tests" / "data").glob("*.sql"))
     assert paths, "expected SQL data tests"
