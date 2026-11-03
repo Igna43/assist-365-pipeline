@@ -34,9 +34,3 @@ Dos resultados del primer modelo estaban mal, y no los resolví apagando el test
 El test de costo negativo falló con 477 siniestros pagados. El monto de origen es negativo y el factor de cambio no lo es. Conservar el signo es lo correcto: tirar esas filas subiría el costo. El test ahora exige que el signo se mantenga.
 
 215.219 pólizas emitidas quedaron sin dólares. No era solo que el calendario termina el 2026-10-30. Adentro del rango hay huecos: 5.124 filas son 732 fechas, no todos los días. El join por fecha exacta no alcanza. `dim_tipo_cambio` arma un día por moneda y arrastra la última tasa, y marca de dónde salió (`exact`, `carried_forward`, `extrapolated_forward`, `extrapolated_backward`, `missing`). Los números del informe son los de después de ese arreglo. Cuando la moneda viene `NaN`, no inventé una.
-
-## Qué no delegué
-
-El token de la API no está en el repo. Vive en `.env`, que el `.gitignore` excluye, y entra al Cloud Run Job en el deploy. Secret Manager no se pudo habilitar: esta cuenta no tiene `serviceusage.services.enable`.
-
-Tampoco delegué el criterio de los números. Equipaje Protegido destruye margen (147,8%, pérdida de USD 659.948) y no es por frecuencia ni por severidad: ambas están apenas debajo del portafolio. El país casi no separa. La compra con 0 a 2 días de anticipación tiene siniestralidad 63,7% contra 33,7% del resto, con el doble de frecuencia y la misma severidad. Eso está en `analysis/resultados.md` y es lo que defendería en la entrevista.
